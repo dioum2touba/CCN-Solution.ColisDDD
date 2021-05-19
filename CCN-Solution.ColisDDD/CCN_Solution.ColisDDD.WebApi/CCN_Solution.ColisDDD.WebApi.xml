@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CCN_Solution.ColisDDD.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:CCN_Solution.ColisDDD.WebApi.Controllers.v1.AgencesController.PostAgence(CCN_Solution.ColisDDD.Application.DTOs.AgenceDto)">
+            <summary>
+            Save new agence
+            </summary>
+            <param name="agence"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CCN_Solution.ColisDDD.WebApi.Controllers.v1.ColisController.PostColis(CCN_Solution.ColisDDD.Application.DTOs.ColisDto)">
+            <summary>
+            Save new Colis
+            </summary>
+            <param name="Colis"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CCN_Solution.ColisDDD.WebApi.Controllers.v1.LivraisonsController.PostLivraison(CCN_Solution.ColisDDD.Application.DTOs.LivraisonDto)">
+            <summary>
+            Save new Livraison
+            </summary>
+            <param name="Livraison"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
