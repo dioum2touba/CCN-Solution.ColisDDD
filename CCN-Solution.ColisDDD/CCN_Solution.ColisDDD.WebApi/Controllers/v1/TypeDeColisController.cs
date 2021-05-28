@@ -18,7 +18,6 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
     [ApiExplorerSettings(GroupName = "Gestion des types de colis par région")]
     public class TypeDeColisController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         public readonly ITypeDeColisService _typeDeColisService;
 
         public TypeDeColisController(ITypeDeColisService typeDeColisService)
@@ -70,7 +69,6 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         public async Task<ActionResult<TypeDeColisDto>> PostTypeDeColis(TypeDeColisDto typeDeColis)
         {
             typeDeColis = await _typeDeColisService.AddAsync(typeDeColis);
-            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTypeDeColis", new { id = typeDeColis.Id }, typeDeColis);
         }

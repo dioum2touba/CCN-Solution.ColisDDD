@@ -1,4 +1,6 @@
-﻿namespace CCNSolution.ColisDDD.Application.Wrappers
+﻿using CCN_Solution.ColisDDD.Application.Wrappers;
+
+namespace CCNSolution.ColisDDD.Application.Wrappers
 {
     public class PagedResponse<T> : Response<T>
     {

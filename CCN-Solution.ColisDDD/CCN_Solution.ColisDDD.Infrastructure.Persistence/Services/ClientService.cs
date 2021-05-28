@@ -42,5 +42,8 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             var clients = await _clientRepository.GetAllAsync();
             return clients.Any(a => a.Id == id);
         }
+
+        public async Task<ClientDto> GetClientParTelephone(int telephone)
+            => _mapper.Map<ClientDto>(await _clientRepository.GetClientParTelephone(telephone));
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Text;
+using CCN_Solution.ColisDDD.Application.Wrappers;
 using CCN_Solution.ColisDDD.Domain.Entities;
 using CCN_Solution.ColisDDD.Domain.IRepositories;
 using CCN_Solution.ColisDDD.Domain.Settings;
@@ -48,6 +49,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence
             services.AddIdentity<ApplicationUser, Role>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             #region Services
+            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAgenceService, AgenceService>();

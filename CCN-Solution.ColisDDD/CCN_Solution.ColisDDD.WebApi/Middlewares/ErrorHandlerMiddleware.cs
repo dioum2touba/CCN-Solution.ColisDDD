@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CCN_Solution.ColisDDD.Application.Wrappers;
 using CCNSolution.ColisDDD.Application.Wrappers;
 
 namespace CCN_Solution.ColisDDD.WebApi.Middlewares
@@ -33,7 +33,7 @@ namespace CCN_Solution.ColisDDD.WebApi.Middlewares
 
                 switch (error)
                 {
-                    case Application.Exceptions.ApiException e:
+                    case ApiException e:
                         // custom application error
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;

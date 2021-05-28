@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CCNSolution.ColisDDD.Application.Wrappers
+namespace CCN_Solution.ColisDDD.Application.Wrappers
 {
     public class Response<T>
     {

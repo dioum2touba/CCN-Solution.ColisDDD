@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCN_Solution.ColisDDD.Application.Interfaces;
@@ -29,7 +30,10 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         [SwaggerResponse(200, "Successfully found Colis", typeof(List<ColisDto>))]
         [SwaggerResponse(400, "Bad request, error", typeof(List<ColisDto>))]
         public async Task<ActionResult<IEnumerable<ColisDto>>> GetColis()
-            => await _colisService.GetAllAsync();
+        {
+            var colis = await _colisService.GetAllAsync();
+            return colis.OrderByDescending(c => c.Id).ToList();
+        }
 
         // GET: api/Colis/5
         [HttpGet("{id}")]
@@ -40,6 +44,11 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
                 return NotFound();
             return Colis;
         }
+
+        // GET: api/Colis/5
+        [HttpGet("ReceptionneUnColis/{id}")]
+        public async Task<ActionResult<string>> GetReceptionneUnColis(int id)
+            => Ok(await _colisService.GetReceptionneUnColis(id));
 
         // PUT: api/Colis/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -74,7 +83,7 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         [HttpPost]
         public async Task<ActionResult<ColisDto>> PostColis(ColisDto Colis)
         {
-            Colis = await _colisService.AddAsync(Colis);
+            Colis = await _colisService.PostSaveColisDto(Colis);
 
             return CreatedAtAction("GetColis", new { id = Colis.Id }, Colis);
         }

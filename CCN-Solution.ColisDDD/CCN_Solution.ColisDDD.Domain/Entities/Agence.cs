@@ -11,7 +11,6 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public string NomAgence { get; set; }
         public string Adresse { get; set; }
         public string CodeAgence { get; set; }
-        public string Pays { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
         public int Telephone { get; set; }

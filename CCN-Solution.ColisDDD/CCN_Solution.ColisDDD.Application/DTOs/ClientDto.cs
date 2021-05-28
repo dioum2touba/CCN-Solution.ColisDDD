@@ -10,12 +10,12 @@ namespace CCN_Solution.ColisDDD.Application.DTOs
             Images = new HashSet<ImagesDto>();
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int CIN { get; set; }
         public int Telephone { get; set; }
         public string Adresse { get; set; }
-
-        public RegionDto Region { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string DisplayName => FirstName + " " + LastName;
 
         public virtual ICollection<ImagesDto> Images { get; set; }
     }

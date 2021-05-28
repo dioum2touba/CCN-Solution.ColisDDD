@@ -32,5 +32,40 @@ namespace CCN_Solution.ColisDDD.Application.Interfaces
         UserDto FindByUsername(string username);
 
         List<string> GetRolesAsync(UserDto user);
+
+        bool IfExists(string id);
+
+        List<UserDto> GetApplicationUsersWithRoles();
+
+        List<UserDto> GetByIdAsyncWithInc(int id);
     }
 }
+
+/*
+ *bool IsValidUser(string userName, string password);
+   
+   Task<List<RoleDto>> GeRoleDto();
+   
+   Task<UserDto> FindUserById(string userId);
+   
+   Task<List<UserDto>> GetUsers();
+   
+   Task<UserDto> AddUsers(UserDto UserDto);
+   
+   void DeleteUsers(UserDto UserDto);
+   
+   Task<UserDto> FindByNameAsync(string roleName);
+   
+   Task<int> UpdateAsync(UserDto UserDto);
+   
+   string GeneratePasswordResetTokenAsync(UserDto user);
+   
+   Task<UserDto> FindByEmailAsync(string email);
+   
+   IdentityResult ResetPasswordAsync(UserDto user, string token, string newPassword);
+   
+   Task<UserDto> FindByUsername(string username);
+   
+   Task<List<string>> GetRolesAsync(UserDto user);
+ *
+ */

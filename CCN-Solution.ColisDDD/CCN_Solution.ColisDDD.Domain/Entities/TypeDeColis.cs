@@ -13,6 +13,7 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public string Libelle { get; set; }
         public string Categorie { get; set; }
         public double Prix { get; set; }
+        public double? Poid { get; set; }
 
         public virtual ICollection<Colis> Colis { get; set; }
     }

@@ -42,6 +42,20 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
             return client;
         }
 
+        // GET: api/Clients/5
+        [HttpGet("ClientParTelephone/{telephone}")]
+        public async Task<ActionResult<ClientDto>> GetClientParTelephone(int telephone)
+        {
+            var client = await _clientService.GetClientParTelephone(telephone);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            return client;
+        }
+
         // PUT: api/Clients/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

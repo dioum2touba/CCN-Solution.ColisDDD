@@ -47,9 +47,6 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<string>("NomAgence")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pays")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RegionId")
                         .HasColumnType("int");
 
@@ -71,7 +68,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AgenceId")
+                    b.Property<int>("AgenceId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -114,7 +111,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RegionId")
+                    b.Property<int>("RegionId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -154,21 +151,19 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<string>("Adresse")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CIN")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RegionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Telephone")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RegionId");
 
                     b.ToTable("Client");
                 });
@@ -183,7 +178,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<int>("AgenceDepartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AgenceRecepteurId")
+                    b.Property<int?>("AgenceRecepteurId")
                         .HasColumnType("int");
 
                     b.Property<int>("ClientRecepteurId")
@@ -198,7 +193,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateArrivée")
+                    b.Property<DateTime?>("DateArrivee")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateEnvoie")
@@ -225,13 +220,10 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.Property<int>("RegionDepartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RegionRecepteurId")
+                    b.Property<int?>("RegionRecepteurId")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeDeColisId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TypeDeColisId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -249,8 +241,6 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                     b.HasIndex("RegionRecepteurId");
 
                     b.HasIndex("TypeDeColisId");
-
-                    b.HasIndex("TypeDeColisId1");
 
                     b.ToTable("Colis");
                 });
@@ -350,8 +340,23 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Adresse")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Label")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pays")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Telephone")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -397,6 +402,9 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Libelle")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Poid")
+                        .HasColumnType("float");
 
                     b.Property<double>("Prix")
                         .HasColumnType("float");
@@ -559,19 +567,14 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CCN_Solution.ColisDDD.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Agence", null)
+                    b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Agence", "Agence")
                         .WithMany("Users")
-                        .HasForeignKey("AgenceId");
+                        .HasForeignKey("AgenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Region", null)
-                        .WithMany("Users")
-                        .HasForeignKey("RegionId");
-                });
-
-            modelBuilder.Entity("CCN_Solution.ColisDDD.Domain.Entities.Client", b =>
-                {
                     b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Region", "Region")
-                        .WithMany("Clients")
+                        .WithMany("Users")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -587,9 +590,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
 
                     b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Agence", "AgenceRecepteur")
                         .WithMany()
-                        .HasForeignKey("AgenceRecepteurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AgenceRecepteurId");
 
                     b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Client", "ClientRecepteur")
                         .WithMany()
@@ -611,19 +612,13 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Migrations
 
                     b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.Region", "RegionRecepteur")
                         .WithMany()
-                        .HasForeignKey("RegionRecepteurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RegionRecepteurId");
 
                     b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.TypeDeColis", "TypeDeColis")
-                        .WithMany()
+                        .WithMany("Colis")
                         .HasForeignKey("TypeDeColisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CCN_Solution.ColisDDD.Domain.Entities.TypeDeColis", null)
-                        .WithMany("Colis")
-                        .HasForeignKey("TypeDeColisId1");
                 });
 
             modelBuilder.Entity("CCN_Solution.ColisDDD.Domain.Entities.Images", b =>

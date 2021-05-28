@@ -23,6 +23,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Contexts
         }
 
         #region DBSet Entities
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<Agence> Agence { get; set; }
         public DbSet<Colis> Colis { get; set; }

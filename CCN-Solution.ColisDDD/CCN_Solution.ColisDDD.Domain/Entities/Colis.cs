@@ -8,7 +8,7 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public string Libelle { get; set; }
         public string  Description { get; set; }
         public DateTime DateEnvoie { get; set; }
-        public DateTime DateArrivée { get; set; }
+        public DateTime? DateArrivee { get; set; }
         public bool ReceptionAgence { get; set; }
         public bool EtatClient { get; set; }
 
@@ -21,10 +21,10 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public int AgenceDepartId { get; set; }
         public Agence AgenceDepart { get; set; }
 
-        public int AgenceRecepteurId { get; set; }
+        public int? AgenceRecepteurId { get; set; }
         public Agence AgenceRecepteur { get; set; }
 
-        public int RegionRecepteurId { get; set; }
+        public int? RegionRecepteurId { get; set; }
         public Region RegionRecepteur { get; set; }
 
         public int RegionDepartId { get; set; }

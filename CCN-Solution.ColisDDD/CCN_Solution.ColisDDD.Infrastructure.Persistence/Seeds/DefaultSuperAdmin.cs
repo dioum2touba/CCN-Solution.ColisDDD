@@ -21,7 +21,8 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Seeds
                 LastName = "Murugan",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
-                // AgenceId = agence.Id
+                AgenceId = agence.Id,
+                RegionId = agence.RegionId
             };
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {

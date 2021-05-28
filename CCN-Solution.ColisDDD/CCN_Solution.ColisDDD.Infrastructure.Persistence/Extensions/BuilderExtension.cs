@@ -36,13 +36,6 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Extensions
                     .HasForeignKey(l => l.LivreurId);
             });
 
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.HasOne(c => c.Region)
-                    .WithMany(c => c.Clients)
-                    .HasForeignKey(c => c.RegionId);
-            });
-
             modelBuilder.Entity<Images>(entity =>
             {
                 entity.HasOne(i => i.Client)
@@ -67,7 +60,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Extensions
                     .HasForeignKey(c => c.RegionRecepteurId);
 
                 entity.HasOne(c => c.TypeDeColis)
-                    .WithMany()
+                    .WithMany(t => t.Colis)
                     .HasForeignKey(c => c.TypeDeColisId);
 
                 entity.HasOne(c => c.ClientSource)

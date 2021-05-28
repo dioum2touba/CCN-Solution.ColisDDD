@@ -74,7 +74,15 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         [HttpPost]
         public async Task<ActionResult<RegionDto>> PostRegion(RegionDto region)
         {
-            await _regionService.AddAsync(region);
+            try
+            {
+                await _regionService.AddAsync(region);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
             return CreatedAtAction("GetRegion", new { id = region.Id }, region);
         }

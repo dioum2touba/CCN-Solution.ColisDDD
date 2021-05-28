@@ -11,6 +11,14 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Extensions
             //builder.HasDefaultSchema("Identity");
             builder.Entity<ApplicationUser>(entity =>
             {
+                entity.HasOne(l => l.Agence)
+                    .WithMany(a => a.Users)
+                    .HasForeignKey(l => l.AgenceId);
+
+                entity.HasOne(l => l.Region)
+                    .WithMany(r => r.Users)
+                    .HasForeignKey(l => l.RegionId);
+
                 entity.ToTable(name: "User");
             });
 

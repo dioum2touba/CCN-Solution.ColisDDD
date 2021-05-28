@@ -13,10 +13,8 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Telephone { get; set; }
+        public int CIN { get; set; }
         public string Adresse { get; set; }
-
-        public int RegionId { get; set; }
-        public Region Region { get; set; }
 
         public virtual ICollection<Images> Images { get; set; }
     }

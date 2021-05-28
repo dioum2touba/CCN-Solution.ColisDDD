@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCN_Solution.ColisDDD.Application.Interfaces;
@@ -14,37 +15,42 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
+        private readonly IAgenceService _agenceService;
         private readonly RoleManager<Role> _roleManager;
 
         public UserService(UserManager<ApplicationUser> userManager, IUserRepository userRepository, IMapper mapper,
-            IRoleRepository roleRepository, RoleManager<Role> roleManager)
+            IRoleRepository roleRepository, RoleManager<Role> roleManager, IAgenceService agenceService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _userRepository = userRepository;
             _roleRepository = roleRepository;
             _roleManager = roleManager;
+            _agenceService = agenceService;
         }
 
 
         public UserDto FindUserById(string userId)
         {
             var user = _userManager.FindByIdAsync(userId).Result;
-            return new UserDto()
-            {
-                Email = user.Email,
-                UserName = user.UserName,
-                AccessFailedCount = user.AccessFailedCount,
-                FirstName = user.FirstName,
-                Id = user.Id,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                SecurityStamp = user.SecurityStamp
-            };
+            var userDto = _mapper.Map<UserDto>(user);
+            // userDto.Agence = 
+            return userDto;
+            // return new UserDto()
+            // {
+            //     Email = user.Email,
+            //     UserName = user.UserName,
+            //     AccessFailedCount = user.AccessFailedCount,
+            //     FirstName = user.FirstName,
+            //     Id = user.Id,
+            //     LastName = user.LastName,
+            //     PhoneNumber = user.PhoneNumber,
+            //     SecurityStamp = user.SecurityStamp,
+            // };
         }
 
         public List<UserDto> GetUsers()
-            => _mapper.Map<List<UserDto>>(_userRepository.GetAllAsync().Result);
+            => _mapper.Map<List<UserDto>>(_userRepository.GetApplicationUsersWithRoles());
 
         public List<RoleDto> GeRoleDto()
         {
@@ -52,12 +58,10 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             return _mapper.Map<List<RoleDto>>(role);
         }
 
-        public UserDto AddUsers(UserDto UserDto)
+        public UserDto AddUsers(UserDto entity)
         {
-            var user = _userRepository.AddAsync(new ApplicationUser()
-            { Email = UserDto.Email, UserName = UserDto.UserName }).Result;
-            UserDto.Id = user.Id;
-            return UserDto;
+            var user = _userRepository.AddAsync(_mapper.Map<ApplicationUser>(entity)).Result;
+            return _mapper.Map<UserDto>(user);
         }
 
         public void DeleteUsers(UserDto UserDto)
@@ -103,6 +107,24 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             var res = _userManager.GetRolesAsync(_mapper.Map<ApplicationUser>(user)).Result;
             roles.AddRange(res);
             return roles;
+        }
+
+        public bool IfExists(string id)
+        {
+            var users = _userRepository.GetAllAsync().Result;
+            return users.Any(a => a.Id == id);
+        }
+
+        public List<UserDto> GetApplicationUsersWithRoles()
+        {
+            var users = _mapper.Map<List<UserDto>>(_userRepository.GetApplicationUsersWithRoles());
+            users.ForEach(elt => elt.Roles.AddRange(_mapper.Map<List<RoleDto>>(_userRepository.GetRoleByUserIdAsyncWithInc(elt.Id).Result)));
+            return users;
+        }
+
+        public List<UserDto> GetByIdAsyncWithInc(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
         public bool IsValidUser(string userName, string password)

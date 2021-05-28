@@ -21,7 +21,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             => _mapper.Map<LivraisonDto>(await _livraisonRepository.GetByIdAsync(id));
 
         public async Task<List<LivraisonDto>> GetAllAsync()
-            => _mapper.Map<List<LivraisonDto>>(await _livraisonRepository.GetAllAsync());
+            => _mapper.Map<List<LivraisonDto>>(await _livraisonRepository.GetLivraisonsAllAsyncWithInc());
 
         public Task<List<LivraisonDto>> GetPagedReponseAsync(int pageNumber, int pageSize)
         {
