@@ -43,7 +43,7 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTypeDeColis(int id, TypeDeColisDto typeDeColis)
-        {
+         {
             if (id != typeDeColis.Id)
                 return BadRequest();
 
@@ -59,7 +59,7 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
                     throw;
             }
 
-            return NoContent();
+            return Ok("Success");
         }
 
         // POST: api/TypeDeColis

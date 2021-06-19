@@ -58,6 +58,10 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence
             services.AddTransient<ITypeDeColisService, TypeDeColisService>();
             services.AddTransient<IColisService, ColisService>();
             services.AddTransient<ILivraisonService, LivraisonService>();
+            services.AddTransient<ITypeLivraisonService, TypeLivraisonService>();
+            services.AddTransient<ITypeAgenceService, TypeAgenceService>();
+            services.AddTransient<IMoyenTransportService, MoyenTransportService>();
+            services.AddTransient<IPrixVoyageRegionService, PrixVoyageRegionsService>();
             #endregion
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
@@ -120,6 +124,10 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence
             services.AddTransient<ITypeDeColisRepository, TypeDeColisRepository>();
             services.AddTransient<IColisRepository, ColisRepository>();
             services.AddTransient<ILivraisonRepository, LivraisonRepository>();
+            services.AddTransient<IPrixVoyageRegionRepository, PrixVoyageRegionRepository>();
+            services.AddTransient<IMoyenTransportRepository, MoyenTransportRepository>();
+            services.AddTransient<ITypeLivraisonRepository, TypeLivraisonRepository>();
+            services.AddTransient<ITypeAgenceRepository, TypeAgenceRepository>();
             #endregion
         }
     }

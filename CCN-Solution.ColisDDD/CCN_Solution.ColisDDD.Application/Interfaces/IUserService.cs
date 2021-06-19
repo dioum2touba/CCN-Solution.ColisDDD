@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCNSolution.ColisDDD.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +16,7 @@ namespace CCN_Solution.ColisDDD.Application.Interfaces
 
         List<UserDto> GetUsers();
 
-        UserDto AddUsers(UserDto UserDto);
+        Task<UserDto> AddUsersAsync(UserDto UserDto);
 
         void DeleteUsers(UserDto UserDto);
 

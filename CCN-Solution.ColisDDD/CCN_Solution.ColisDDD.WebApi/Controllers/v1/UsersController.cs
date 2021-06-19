@@ -61,9 +61,9 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public ActionResult<UserDto> PostUsers(UserDto Users)
+        public async Task<ActionResult<UserDto>> PostUsers(UserDto Users)
         {
-            Users = _userService.AddUsers(Users);
+            Users = await _userService.AddUsersAsync(Users);
 
             return CreatedAtAction("GetUsers", new { id = Users.Id }, Users);
         }

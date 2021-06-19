@@ -21,7 +21,17 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             => _mapper.Map<AgenceDto>(await _agenceRepository.GetByIdAsync(id));
 
         public async Task<List<AgenceDto>> GetAllAsync()
-            => _mapper.Map<List<AgenceDto>>(await _agenceRepository.GetAllAsync());
+        {
+            var agences = _mapper.Map<List<AgenceDto>>(_agenceRepository.GetAllAgencesIncRegions());
+            agences.ForEach(elt =>
+            {
+                if (elt.TypeAgence == null)
+                    elt.NomAgence = elt.NomAgence + " - DEM DIKK";
+                else
+                    elt.NomAgence = elt.NomAgence + " - Partenaire";
+            });
+            return agences; 
+        }
 
         public Task<List<AgenceDto>> GetPagedReponseAsync(int pageNumber, int pageSize)
         {

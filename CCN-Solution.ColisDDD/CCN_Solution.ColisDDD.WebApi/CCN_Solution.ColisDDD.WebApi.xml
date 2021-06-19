@@ -25,6 +25,13 @@
             <param name="Livraison"></param>
             <returns></returns>
         </member>
+        <member name="M:CCN_Solution.ColisDDD.WebApi.Controllers.v1.PrixVoyageRegionsController.Postrole(CCN_Solution.ColisDDD.Application.DTOs.PrixVoyageRegionDto)">
+            <summary>
+            Save new role
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
         <member name="M:CCN_Solution.ColisDDD.WebApi.Controllers.v1.RolesController.Postrole(CCN_Solution.ColisDDD.Application.DTOs.RoleDto)">
             <summary>
             Save new role

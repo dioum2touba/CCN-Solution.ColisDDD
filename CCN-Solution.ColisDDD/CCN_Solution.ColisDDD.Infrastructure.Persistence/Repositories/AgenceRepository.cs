@@ -17,6 +17,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Repositories
             => (_agences, _mapper) = (dbContext.Set<Agence>(), mapper);
 
         public List<Agence> GetAllAgencesIncRegions()
-            => _agences.Include(a => a.Region).ToList();
+            => _agences.Include(a => a.Region)
+                .Include(a => a.TypeAgence).OrderByDescending(a => a.Id).ToList();
     }
 }

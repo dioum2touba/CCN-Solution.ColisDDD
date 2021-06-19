@@ -34,7 +34,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
         public async Task<ColisDto> AddAsync(ColisDto entity)
         {
             var colis = _mapper.Map<Colis>(entity);
-            colis.DateEnvoie = DateTime.Parse(entity.DateEnvoie);
+            //colis.DateEnvoie = DateTime.Parse(entity.DateEnvoie);
             return _mapper.Map<ColisDto>(await _colisRepository.AddAsync(colis));
         }
 

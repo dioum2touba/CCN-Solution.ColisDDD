@@ -13,7 +13,6 @@ using CCN_Solution.ColisDDD.Application.Exceptions;
 using CCN_Solution.ColisDDD.Application.Interfaces;
 using CCN_Solution.ColisDDD.Application.Wrappers;
 using CCNSolution.ColisDDD.Application.DTOs.Account;
-using CCNSolution.ColisDDD.Application.Wrappers;
 using CCN_Solution.ColisDDD.Domain.Entities;
 using CCN_Solution.ColisDDD.Domain.Settings;
 using CCN_Solution.ColisDDD.Infrastructure.Persistence.Helpers;
@@ -53,8 +52,8 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
         public async Task<Response<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request,
             string ipAddress)
         {
-            request.Email = "superadmin@gmail.com";
-            request.Password = "123Pa$$word!";
+            //request.Email = "superadmin@gmail.com";
+            //request.Password = "123Pa$$word!";
 
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)

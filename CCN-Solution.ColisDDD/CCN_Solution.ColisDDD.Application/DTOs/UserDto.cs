@@ -17,8 +17,8 @@ namespace CCN_Solution.ColisDDD.Application.DTOs
         public int RegionId { get; set; }
         public virtual RegionDto Region { get; set; }
 
-        public UserDto() => (Roles, rolesId) = (new List<RoleDto>(), new List<int>());
+        public UserDto() => (Roles) = (new List<RoleDto>());
         public virtual List<RoleDto> Roles { get; set; }
-        public List<int> rolesId { get; set; }
+        public string rolesId { get; set; }
     }
 }

@@ -7,10 +7,13 @@ namespace CCN_Solution.ColisDDD.Application.DTOs
     {
         public string Libelle { get; set; }
         public string  Description { get; set; }
-        public string DateEnvoie { get; set; }
+        public DateTime DateEnvoie { get; set; }
         public DateTime DateArrivée { get; set; }
         public bool ReceptionAgence { get; set; }
         public bool EtatClient { get; set; }
+
+        public int MoyenTransportId { get; set; }
+        public MoyenTransportDto MoyenTransport { get; set; }
 
         public int ClientSourceId { get; set; }
         public ClientDto ClientSource { get; set; }

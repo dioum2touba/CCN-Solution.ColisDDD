@@ -30,6 +30,9 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
         public int RegionDepartId { get; set; }
         public Region RegionDepart { get; set; }
 
+        public int MoyenTransportId { get; set; }
+        public MoyenTransport MoyenTransport { get; set; }
+
         public int TypeDeColisId { get; set; }
         public TypeDeColis TypeDeColis { get; set; }
     }

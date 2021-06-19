@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCN_Solution.ColisDDD.Application.Interfaces;
@@ -12,13 +11,13 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
     [Route("api/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [ApiExplorerSettings(GroupName = "Gestion des roles")]
-    public class RolesController : ControllerBase
+    [ApiExplorerSettings(GroupName = "Gestion des prix des voyages")]
+    public class PrixVoyageRegionsController : ControllerBase
     {
-        public readonly IRoleService _roleService;
+        public readonly IPrixVoyageRegionService _prixVoyageRegionservice;
 
-        public RolesController(IRoleService roleService)
-            => _roleService = roleService;
+        public PrixVoyageRegionsController(IPrixVoyageRegionService prixVoyageRegionservice)
+            => _prixVoyageRegionservice = prixVoyageRegionservice;
 
         // GET: api/role
         [HttpGet]
@@ -27,16 +26,16 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
             Summary = "Liste de toutes les role",
             Description = "Recupérer la liste des role"
         )]
-        [SwaggerResponse(200, "Successfully found role", typeof(List<RoleDto>))]
-        [SwaggerResponse(400, "Bad request, error", typeof(List<RoleDto>))]
-        public async Task<ActionResult<IEnumerable<RoleDto>>> Getrole()
-            => await _roleService.GetAllAsync();
+        [SwaggerResponse(200, "Successfully found role", typeof(List<PrixVoyageRegionDto>))]
+        [SwaggerResponse(400, "Bad request, error", typeof(List<PrixVoyageRegionDto>))]
+        public async Task<ActionResult<IEnumerable<PrixVoyageRegionDto>>> Getrole()
+            => await _prixVoyageRegionservice.GetAllAsync();
 
         // GET: api/role/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoleDto>> Getrole(string id)
+        public async Task<ActionResult<PrixVoyageRegionDto>> Getrole(int id)
         {
-            var role = await _roleService.GetByIdAsync(id);
+            var role = await _prixVoyageRegionservice.GetByIdAsync(id);
             if (role == null)
                 return NotFound();
             return role;
@@ -46,13 +45,13 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> Putrole(string id, RoleDto role)
+        public async Task<IActionResult> Putrole(int id, PrixVoyageRegionDto prixVoyageRegion)
         {
-            if (id != role.Id)
+            if (id != prixVoyageRegion.Id)
                 return BadRequest();
             try
             {
-                await _roleService.UpdateAsync(role);
+                await _prixVoyageRegionservice.UpdateAsync(prixVoyageRegion);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -73,31 +72,29 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<RoleDto>> Postrole(RoleDto role)
+        public async Task<ActionResult<PrixVoyageRegionDto>> Postrole(PrixVoyageRegionDto role)
         {
-            role.Id = Guid.NewGuid().ToString();
-            role.NormalizedName = role.Name.ToUpper();
-            role = await _roleService.AddAsync(role);
+            role = await _prixVoyageRegionservice.AddAsync(role);
 
             return CreatedAtAction("Getrole", new { id = role.Id }, role);
         }
 
         // DELETE: api/role/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RoleDto>> Deleterole(int id)
+        public async Task<ActionResult<PrixVoyageRegionDto>> Deleterole(int id)
         {
-            var role = await _roleService.GetByIdAsync(id);
+            var role = await _prixVoyageRegionservice.GetByIdAsync(id);
             if (role == null)
             {
                 return NotFound();
             }
 
-            await _roleService.DeleteAsync(role);
+            await _prixVoyageRegionservice.DeleteAsync(role);
 
             return role;
         }
 
-        private bool roleExists(string id)
-            => _roleService.IfExists(id).Result;
+        private bool roleExists(int id)
+            => _prixVoyageRegionservice.IfExists(id).Result;
     }
 }

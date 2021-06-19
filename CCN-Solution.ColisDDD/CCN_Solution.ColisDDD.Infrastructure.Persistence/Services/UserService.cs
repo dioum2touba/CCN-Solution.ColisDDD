@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoMapper;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCN_Solution.ColisDDD.Application.Interfaces;
@@ -58,10 +60,21 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
             return _mapper.Map<List<RoleDto>>(role);
         }
 
-        public UserDto AddUsers(UserDto entity)
+        public async Task<UserDto> AddUsersAsync(UserDto entity)
         {
-            var user = _userRepository.AddAsync(_mapper.Map<ApplicationUser>(entity)).Result;
-            return _mapper.Map<UserDto>(user);
+            var user = _mapper.Map<ApplicationUser>(entity);
+            var result = await _userManager.CreateAsync(user, entity.PasswordHash);
+
+            if (result.Succeeded)
+            {
+                var role = await _roleManager.FindByIdAsync(entity.rolesId);
+                var resultRole = await _userManager.AddToRoleAsync(user, role.Name);
+                if (resultRole.Succeeded)
+                {
+                    await _userManager.AddClaimAsync(user, new Claim("PhoneNumber", user.PhoneNumber.ToString()));
+                }
+            }
+                return _mapper.Map<UserDto>(user);
         }
 
         public void DeleteUsers(UserDto UserDto)

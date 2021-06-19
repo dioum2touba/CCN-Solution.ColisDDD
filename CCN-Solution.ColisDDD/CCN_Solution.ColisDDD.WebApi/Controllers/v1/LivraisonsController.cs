@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CCN_Solution.ColisDDD.Application.DTOs;
 using CCN_Solution.ColisDDD.Application.Interfaces;
@@ -72,11 +73,12 @@ namespace CCN_Solution.ColisDDD.WebApi.Controllers.v1
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<LivraisonDto>> PostLivraison(LivraisonDto Livraison)
+        public async Task<ActionResult<LivraisonDto>> PostLivraison(LivraisonDto livraison)
         {
-            Livraison = await _livraisonService.AddAsync(Livraison);
+            livraison.Created = DateTime.Now;
+            livraison = await _livraisonService.AddAsync(livraison);
 
-            return CreatedAtAction("GetLivraison", new { id = Livraison.Id }, Livraison);
+            return CreatedAtAction("GetLivraison", new { id = livraison.Id }, livraison);
         }
 
         // DELETE: api/Livraison/5

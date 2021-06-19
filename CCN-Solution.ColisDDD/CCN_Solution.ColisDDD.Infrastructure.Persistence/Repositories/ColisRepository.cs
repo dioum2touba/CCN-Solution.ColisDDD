@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CCN_Solution.ColisDDD.Domain.Entities;
 using CCN_Solution.ColisDDD.Domain.IRepositories;
@@ -23,7 +24,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Repositories
                 .Include(c => c.ClientRecepteur)
                 .Include(c => c.RegionDepart)
                 .Include(c => c.RegionRecepteur)
-                .Include(c => c.TypeDeColis).ToListAsync();
+                .Include(c => c.TypeDeColis).OrderByDescending(c => c.Id).ToListAsync();
 
         public async Task<Colis> GetReceptionneUnColis(int Id)
         {
@@ -31,7 +32,7 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Repositories
             colis.ReceptionAgence = true;
             colis.DateArrivee = DateTime.Now;
             _context.Colis.Update(colis);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return colis;
         }
 

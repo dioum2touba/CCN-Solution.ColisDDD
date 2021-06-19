@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -29,7 +30,19 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Services
         }
 
         public async Task<LivraisonDto> AddAsync(LivraisonDto entity)
-            => _mapper.Map<LivraisonDto>(await _livraisonRepository.AddAsync(_mapper.Map<Livraison>(entity)));
+        {
+            Livraison livraison = null;
+            try
+            {
+                livraison = await _livraisonRepository.AddAsync(_mapper.Map<Livraison>(entity));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return _mapper.Map<LivraisonDto>(livraison);
+        }
 
         public async Task UpdateAsync(LivraisonDto entity)
             => await _livraisonRepository.UpdateAsync(_mapper.Map<Livraison>(entity));

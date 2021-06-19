@@ -32,6 +32,9 @@ namespace CCN_Solution.ColisDDD.Infrastructure.Persistence.Contexts
         public DbSet<PrixVoyageRegion> PrixVoyageRegion { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<TypeDeColis> TypeDeColis { get; set; }
+        public DbSet<TypeAgence> TypeAgence { get; set; }
+        public DbSet<TypeLivraison> TypeLivraison { get; set; }
+        public DbSet<MoyenTransport> MoyenTransport { get; set; }
         #endregion
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

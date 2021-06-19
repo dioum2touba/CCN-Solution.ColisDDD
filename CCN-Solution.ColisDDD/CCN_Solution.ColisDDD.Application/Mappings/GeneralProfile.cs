@@ -18,6 +18,9 @@ namespace CCN_Solution.ColisDDD.Application.Mappings
             CreateMap<Role, RoleDto>().ReverseMap();
             CreateMap<TypeDeColis, TypeDeColisDto>().ReverseMap();
             CreateMap<ApplicationUser, UserDto>().ReverseMap();
+            CreateMap<TypeAgence, TypeAgenceDto>().ReverseMap();
+            CreateMap<TypeLivraison, TypeLivraisonDto>().ReverseMap();
+            CreateMap<MoyenTransport, MoyenTransportDto>().ReverseMap();
         }
     }
 }
