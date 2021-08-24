@@ -22,16 +22,16 @@ namespace CCN_Solution.ColisDDD.WebApi.Extensions
             //        });
             //});
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                    builder =>
-                    {
-                        builder.WithOrigins("*")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
-            });
+            // services.AddCors(options =>
+            // {
+            //     options.AddPolicy(MyAllowSpecificOrigins,
+            //         builder =>
+            //         {
+            //             builder.WithOrigins("*")
+            //                 .AllowAnyHeader()
+            //                 .AllowAnyMethod();
+            //         });
+            // });
         }
 
         public static void AddSwaggerExtension(this IServiceCollection services)

@@ -17,7 +17,6 @@ namespace CCN_Solution.ColisDDD.Application.DTOs
         public string Telephone { get; set; }
         public string HeureDemarrage { get; set; }
         public string HeureFermeture { get; set; }
-        public string Matricule { get; set; }
         public int RegionId { get; set; }
         public int TypeAgenceId { get; set; }
 

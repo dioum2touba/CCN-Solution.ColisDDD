@@ -9,6 +9,7 @@ namespace CCN_Solution.ColisDDD.Application.DTOs
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string? Matricule { get; set; }
         public string DisplayName => FirstName + " " + LastName;
 
         public int AgenceId { get; set; }

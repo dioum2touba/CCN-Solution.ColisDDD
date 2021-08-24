@@ -1,0 +1,22 @@
+﻿version: "3.9"
+services:
+
+  web:
+      depends_on:
+         - db
+      image: ccnsolutioncolisdddwebapi
+      build:
+        context: .
+        dockerfile: Dockerfile
+  db:
+      image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+      container_name: db_colis
+      environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: badar@313
+        MSSQL_DB: ManageColisDB
+        MSSQL_USER: badar313
+        MSSQL_PASSWORD: badar@313
+      ports:
+          - "1433:1433"
+          

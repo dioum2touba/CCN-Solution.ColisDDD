@@ -21,8 +21,10 @@ namespace CCN_Solution.ColisDDD.WebApi
         {
             _config = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddApplicationLayer();
             //services.AddIdentityInfrastructure(_config);
             services.AddPersistenceInfrastructure(_config);
@@ -33,7 +35,7 @@ namespace CCN_Solution.ColisDDD.WebApi
                 o.Conventions.Add(new ControllerDocumentationConvention());
             });
             services.AddApiVersioningExtension();
-            services.AddCorsExtension(MyAllowSpecificOrigins);
+            // services.AddCorsExtension(MyAllowSpecificOrigins);
             services.AddCUstomisedExtension();
             services.AddHealthChecks();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
@@ -41,18 +43,25 @@ namespace CCN_Solution.ColisDDD.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Error");
-            //    app.UseHsts();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+            // app.UseHttpsRedirection();
+            app.UseCors(builder =>
+                builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+            );
             app.UseSwaggerExtension(_config, env);
-            app.UseCors(MyAllowSpecificOrigins);
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

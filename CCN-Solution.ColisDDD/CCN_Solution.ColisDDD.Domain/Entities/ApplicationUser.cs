@@ -8,6 +8,7 @@ namespace CCN_Solution.ColisDDD.Domain.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string? Matricule { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; }
         public bool OwnsToken(string token)
         {
