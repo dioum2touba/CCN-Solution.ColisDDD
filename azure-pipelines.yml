@@ -17,11 +17,6 @@ variables:
 steps:
 - task: UseDotNet@2
   inputs:
-    version: '5.0.x'
-    includePreviewVersions: true # Required for preview versions
-    
-- task: UseDotNet@2
-  inputs:
     version: '3.0.x'
     packageType: runtime
 
@@ -30,6 +25,28 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+    
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+
+# do this after other tasks such as building
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+    publishTestResults: true
+    projects: 'MyTestLibrary' # update with your test project directory
+  
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 - task: VSBuild@1
   inputs:
